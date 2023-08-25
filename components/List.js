@@ -5,6 +5,7 @@ import { useMedia } from '../hooks/ApiHooks';
 const List = () => {
 
 const {mediaArray} = useMedia();
+console.log("mitä tapahtuu", mediaArray);
 
   return (
     <FlatList
