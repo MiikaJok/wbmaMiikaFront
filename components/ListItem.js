@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Image, Text, TouchableOpacity, StyleSheet, View, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 
 const ListItem = ({ singleMedia }) => {
@@ -29,7 +29,7 @@ const ListItem = ({ singleMedia }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 5,
+    paddingTop: StatusBar.currentHeight + 10,
     padding: 10,
     backgroundColor: '#fc9003',
     borderRadius: 20,
