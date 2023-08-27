@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.22.11",
+    "@expo/vector-icons": "^13.0.0",
     "eslint-plugin-react-native": "^4.0.0",
     "expo": "~49.0.7",
     "expo-status-bar": "~1.6.0",
