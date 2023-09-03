@@ -35,7 +35,6 @@ const Login = ({navigation}) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-
         <LoginForm />
         <RegisterForm />
       </KeyboardAvoidingView>

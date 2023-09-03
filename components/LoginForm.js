@@ -33,6 +33,7 @@ const LoginForm = () => {
   };
   return (
     <View>
+      <Text>Login</Text>
       <Controller
         control={control}
         rules={{
