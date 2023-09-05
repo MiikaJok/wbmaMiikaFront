@@ -21,8 +21,9 @@ const Profile = (props) => {
   const loadAvatar = async () => {
     try {
       const avatars = await getFilesByTag("avatar_" + user.user_id);
-      console.log(avatars);
-      setAvatar(mediaUrl + avatars.pop().filename);
+      if (avatars.lenght > 0) {
+        setAvatar(mediaUrl + avatars.pop().filename);
+      }
     } catch(error) {
       console.error(error);
     }
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   image: {
     width: 300,
     height:300,
-  }
+  },
 });
 
 export default Profile;
