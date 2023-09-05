@@ -9,7 +9,7 @@ const RegisterForm = () => {
     control,
     handleSubmit,
     formState: {errors},
-    reset,  //reset funktio kentille
+    reset, //reset funktio kentille
   } = useForm({
     defaultValues: {
       username: '',

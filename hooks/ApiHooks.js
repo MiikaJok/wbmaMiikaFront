@@ -49,11 +49,11 @@ const useAuthentication = () => {
 
 const useUser = () => {
   const getUserByToken = async (token) => {
-      const options = {
-        method: 'GET',
-        headers: {'x-access-token': token},
-      };
-      return await doFetch(apiUrl + 'users/user', options);
+    const options = {
+      method: 'GET',
+      headers: {'x-access-token': token},
+    };
+    return await doFetch(apiUrl + 'users/user', options);
   };
   const postUser = async (userData) => {
     const options = {
@@ -61,11 +61,22 @@ const useUser = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(userData),
     };
     return await doFetch(apiUrl + 'users', options);
   };
-  return {getUserByToken,postUser};
- };
+  return {getUserByToken, postUser};
+};
 
-export {useMedia, useAuthentication, useUser};
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    try {
+      return await doFetch(apiUrl + 'tags/' + tag);
+    } catch (error) {
+      throw new Error('getFilesByTag error', error.message);
+    }
+  };
+  return {getFilesByTag};
+};
+
+export {useMedia, useAuthentication, useUser, useTag};
