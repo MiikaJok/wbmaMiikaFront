@@ -1,9 +1,10 @@
-import {View, Text, TextInput, Button} from 'react-native';
+import {View,TextInput, Button} from 'react-native';
 import React, {useContext} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Card} from '@rneui/themed';
 
 const LoginForm = () => {
   const {postLogin} = useAuthentication();
@@ -33,7 +34,6 @@ const LoginForm = () => {
   };
   return (
     <View>
-      <Text>Login</Text>
       <Controller
         control={control}
         rules={{
@@ -50,7 +50,7 @@ const LoginForm = () => {
         )}
         name="username"
       />
-      {errors.username && <Text>This is required.</Text>}
+       <Card.Divider/>
 
       <Controller
         control={control}
@@ -69,7 +69,7 @@ const LoginForm = () => {
         )}
         name="password"
       />
-      <Button title="Submit" onPress={handleSubmit(logIn)} />
+      <Button title="Sign in!" onPress={handleSubmit(logIn)} />
     </View>
   );
 };

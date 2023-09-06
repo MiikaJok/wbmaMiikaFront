@@ -35,3 +35,4 @@ Single.propTypes = {
 }
 
 export default Single;
+
