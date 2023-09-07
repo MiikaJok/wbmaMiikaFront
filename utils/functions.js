@@ -9,4 +9,8 @@ const doFetch = async (url, options = {}) => {
   }
   return json;
 };
-export {doFetch};
+const formatDate = (date) => {
+  date = new Date(date);
+  return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+};
+export {doFetch, formatDate};

@@ -1,4 +1,4 @@
-import {View,TextInput, Button} from 'react-native';
+import {View, TextInput, Button, Text} from 'react-native';
 import React, {useContext} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useAuthentication} from '../hooks/ApiHooks';
@@ -46,11 +46,12 @@ const LoginForm = () => {
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
+            style={{paddingLeft: 10}}
           />
         )}
         name="username"
       />
-       <Card.Divider/>
+      <Card.Divider />
 
       <Controller
         control={control}
@@ -65,6 +66,7 @@ const LoginForm = () => {
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
+            style={{paddingLeft: 10}}
           />
         )}
         name="password"

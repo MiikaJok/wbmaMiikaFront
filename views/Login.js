@@ -6,8 +6,7 @@ import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import {Text} from '@rneui/themed';
-import { View } from 'react-native';
-
+import {View} from 'react-native';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -32,19 +31,17 @@ const Login = ({navigation}) => {
   }, []);
   return (
     <View>
-      <Text h4>Login</Text>
-        <LoginForm />
-      <Text h4>Register</Text>
-        <RegisterForm />
+      <Text style={{left: '50%', transform: [{translateX: -28}]}} h4>
+        Login
+      </Text>
+      <LoginForm />
+      <Text style={{left: '50%', transform: [{translateX: -40}]}} h4>
+        Register
+      </Text>
+      <RegisterForm />
     </View>
   );
 };
-const containerStyle = {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
 Login.propTypes = {
   navigation: PropTypes.object,
 };

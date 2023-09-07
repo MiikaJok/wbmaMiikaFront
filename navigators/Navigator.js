@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from '../views/Home';
@@ -6,7 +6,8 @@ import Profile from '../views/Profile';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Single from '../views/Single';
 import Login from '../views/Login';
-import { MainContext } from '../contexts/MainContext';
+import {MainContext} from '../contexts/MainContext';
+import {AntDesign, FontAwesome} from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -14,8 +15,26 @@ const Stack = createNativeStackNavigator();
 const Tabscreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home}></Tab.Screen>
-      <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerTitleAlign: 'center',
+          tabBarIcon: ({color, size}) => (
+            <AntDesign name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerTitleAlign: 'center',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name="user" size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -31,10 +50,22 @@ const Stackscreen = () => {
             component={Tabscreen}
             options={{headerShown: false}}
           ></Stack.Screen>
-          <Stack.Screen name="Single" component={Single}></Stack.Screen>
+          <Stack.Screen
+            name="Single"
+            component={Single}
+            options={{
+              headerTitleAlign: 'center',
+            }}
+          ></Stack.Screen>
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login}></Stack.Screen>
+        <Stack.Screen
+          name="MyApp"
+          component={Login}
+          options={{
+            headerTitleAlign: 'center',
+          }}
+        ></Stack.Screen>
       )}
     </Stack.Navigator>
   );

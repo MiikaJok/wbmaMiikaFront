@@ -42,12 +42,13 @@ const RegisterForm = () => {
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
+            style={{paddingLeft: 10}}
             errorMessage={errors.username && errors.username.message}
           />
         )}
         name="username"
       />
-      <Card.Divider/>
+      <Card.Divider />
       {errors.username && <Text>This is required.</Text>}
 
       <Controller
@@ -63,11 +64,12 @@ const RegisterForm = () => {
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
+            style={{paddingLeft: 10}}
           />
         )}
         name="email"
       />
-      <Card.Divider/>
+      <Card.Divider />
       {errors.email && <Text>This is required.</Text>}
 
       <Controller
@@ -83,11 +85,12 @@ const RegisterForm = () => {
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
+            style={{paddingLeft: 10}}
           />
         )}
         name="full_name"
       />
-      <Card.Divider/>
+      <Card.Divider />
       <Controller
         control={control}
         rules={{
@@ -101,6 +104,7 @@ const RegisterForm = () => {
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
+            style={{paddingLeft: 10}}
           />
         )}
         name="password"

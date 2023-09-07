@@ -1,38 +1,51 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, Text, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import { mediaUrl } from '../utils/app-config';
+import {ActivityIndicator, Text} from 'react-native';
+import {mediaUrl} from '../utils/app-config';
+import {formatDate} from '../utils/functions';
+import {Card, Icon, ListItem} from '@rneui/themed';
 
 const Single = ({route, navigation}) => {
-  console.log('route paramas', route)
-  const singleMedia = route.params;
+  const {
+    title,
+    description,
+    filename,
+    time_added: timeAdded,
+    user_id: userId,
+    filesize,
+  } = route.params;
+  // Show full image and metadata
   return (
-    <SafeAreaView style={styles.container}>
-      <Image
-        style={{width: '100%', height: '50%', resizeMode: 'contain'}}
-        source={{uri: mediaUrl + singleMedia.filename}}
+    <Card>
+      <Card.Image
+       style={{ width: '100%',aspectRatio: 1, resizeMode: 'contain' }}
+        source={{uri: mediaUrl + filename}}
+        PlaceholderContent={<ActivityIndicator />}
       />
-      <Text>{singleMedia.title}</Text>
-      <Text>{singleMedia.description}</Text>
-      <Text>{singleMedia.user_id}</Text>
-      <Text>{singleMedia.time_added}</Text>
-    </SafeAreaView>
+      <ListItem>
+        <ListItem.Title style={{fontWeight: 'bold'}}>{title}</ListItem.Title>
+      </ListItem>
+      <ListItem>
+        <Text>{description}</Text>
+      </ListItem>
+      <ListItem>
+        <Icon name="save" />
+        <Text>{Math.round(filesize / 1024)} kB</Text>
+      </ListItem>
+      <ListItem>
+        <Icon name="today" />
+        <Text>Uploaded at: {formatDate(timeAdded)}</Text>
+      </ListItem>
+      <ListItem>
+        <Icon name="person" />
+        <Text>{userId}</Text>
+      </ListItem>
+    </Card>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 40,
-  },
-});
 Single.propTypes = {
   navigation: PropTypes.object,
   route: PropTypes.object,
-}
+};
 
 export default Single;
-
