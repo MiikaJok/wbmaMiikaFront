@@ -1,16 +1,17 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Text} from '@rneui/themed';
-import {View} from 'react-native';
+import {Button} from '@rneui/themed';
+import {Platform,TouchableOpacity,Keyboard, KeyboardAvoidingView} from 'react-native';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {getUserByToken} = useUser();
+  const [toggleRegister, setToggleRegister] = useState(false);
 
   const checkToken = async () => {
     try {
@@ -30,20 +31,30 @@ const Login = ({navigation}) => {
     checkToken();
   }, []);
   return (
-    <View>
-      <Text style={{left: '50%', transform: [{translateX: -28}]}} h4>
-        Login
-      </Text>
-      <LoginForm />
-      <Text style={{left: '50%', transform: [{translateX: -40}]}} h4>
-        Register
-      </Text>
-      <RegisterForm />
-    </View>
+
+    <TouchableOpacity
+      onPress={() => Keyboard.dismiss()}
+      style={{ flex: 1 }}
+      activeOpacity={1}>
+
+     <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+
+      {toggleRegister ? <RegisterForm setToggleRegister={setToggleRegister} /> : <LoginForm />}
+      <Button
+        onPress={() => {
+          setToggleRegister(!toggleRegister);
+        }}
+      >{toggleRegister ? "Or login" : "Or register"}</Button>
+       </KeyboardAvoidingView>
+    </TouchableOpacity>
+
   );
 };
 Login.propTypes = {
   navigation: PropTypes.object,
+
 };
 
 export default Login;

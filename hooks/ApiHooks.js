@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {apiUrl} from '../utils/app-config';
 import {doFetch} from '../utils/functions';
+import {error} from '@babel/eslint-parser/lib/convert/index.cjs';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
@@ -32,7 +33,7 @@ const useMedia = () => {
 const useAuthentication = () => {
   const postLogin = async (user) => {
     console.log(user);
-    try {
+
       return await doFetch(apiUrl + 'login', {
         method: 'POST',
         headers: {
@@ -40,9 +41,6 @@ const useAuthentication = () => {
         },
         body: JSON.stringify(user),
       });
-    } catch (error) {
-      console.error('postLogin error', error);
-    }
   };
   return {postLogin};
 };
@@ -65,7 +63,16 @@ const useUser = () => {
     };
     return await doFetch(apiUrl + 'users', options);
   };
-  return {getUserByToken, postUser};
+
+  const checkUsername = async (username) => {
+    try {
+      const response =  await doFetch(`${apiUrl}users/username/${username}`);
+      return response.available;
+    }catch {
+      throw new Error("checkusername Error", error.message);
+    }
+  };
+  return {getUserByToken, postUser, checkUsername};
 };
 
 const useTag = () => {

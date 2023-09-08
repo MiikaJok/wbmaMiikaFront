@@ -1,10 +1,10 @@
-import {TextInput, Button} from 'react-native';
 import React, {useContext} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Card} from '@rneui/themed';
+import {Card,Button, Input} from '@rneui/themed';
+import { Alert } from 'react-native';
 
 const LoginForm = () => {
   const {postLogin} = useAuthentication();
@@ -29,24 +29,26 @@ const LoginForm = () => {
       setIsLoggedIn(true);
       setUser(loginResponse.user);
     } catch (error) {
-      console.error(error);
+      Alert.alert("Error", error.message)
     }
   };
   return (
     <Card>
+       <Card.Title>Login Form</Card.Title>
       <Controller
         control={control}
         rules={{
-          required: true,
+          required: {value: true, message: "is required"},
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             placeholder="username"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
             style={{paddingLeft: 10}}
+            errorMessage={errors.username?.message}
           />
         )}
         name="username"
@@ -56,10 +58,11 @@ const LoginForm = () => {
       <Controller
         control={control}
         rules={{
+          required: {value: true, message: "is required"},
           maxLength: 100,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             placeholder="password"
             secureTextEntry={true}
             onBlur={onBlur}
@@ -67,11 +70,12 @@ const LoginForm = () => {
             value={value}
             autoCapitalize="none"
             style={{paddingLeft: 10}}
+            errorMessage={errors.password?.message}
           />
         )}
         name="password"
       />
-      <Button title="Sign in!" onPress={handleSubmit(logIn)} />
+      <Button title="Login" onPress={handleSubmit(logIn)} />
     </Card>
   );
 };
