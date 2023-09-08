@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTag} from '../hooks/ApiHooks';
 import {mediaUrl} from '../utils/app-config';
 import {Button, Card, Avatar, Icon, ListItem} from '@rneui/themed';
+import ProfileForm from '../components/ProfileForm';
+import { ScrollView } from 'react-native';
 
 const Profile = (props) => {
   const [avatar, setAvatar] = useState('http://placekitten.com/640');
@@ -33,13 +35,10 @@ const Profile = (props) => {
     loadAvatar();
   }, []);
   return (
+    <ScrollView>
     <Card>
       <Card.Title>{user.username}</Card.Title>
-      <Avatar
-        containerStyle={{alignSelf: 'center', width: '100%', height: '50%'}}
-        size="large"
-        source={{uri: avatar}}
-      />
+      <Card.Image source={{uri: avatar}} />
       <ListItem>
         <Icon name="email" />
         <ListItem.Title>{user.email}</ListItem.Title>
@@ -55,7 +54,9 @@ const Profile = (props) => {
       </ListItem>
       <Card.Divider />
       <Button title="Log out!" onPress={logOut} />
+      <ProfileForm user={user}/>
     </Card>
+    </ScrollView>
   );
 };
 
