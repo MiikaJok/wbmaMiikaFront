@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Text} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {mediaUrl} from '../utils/app-config';
 import {formatDate} from '../utils/functions';
-import {Card, Icon, ListItem} from '@rneui/themed';
+import {Card, Icon, ListItem, Text} from '@rneui/themed';
 
 const Single = ({route, navigation}) => {
   const {
@@ -18,7 +18,7 @@ const Single = ({route, navigation}) => {
   return (
     <Card>
       <Card.Image
-       style={{ width: '100%',aspectRatio: 1, resizeMode: 'contain' }}
+       style={{resizeMode: 'center' }}
         source={{uri: mediaUrl + filename}}
         PlaceholderContent={<ActivityIndicator />}
       />

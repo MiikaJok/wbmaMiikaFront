@@ -1,4 +1,4 @@
-import {View, Text, TextInput, Button} from 'react-native';
+import {Text, TextInput, Button} from 'react-native';
 import React from 'react';
 import {useUser} from '../hooks/ApiHooks';
 import {useForm, Controller} from 'react-hook-form';
@@ -29,7 +29,7 @@ const RegisterForm = () => {
     }
   };
   return (
-    <View>
+    <Card>
       <Controller
         control={control}
         rules={{
@@ -112,7 +112,8 @@ const RegisterForm = () => {
       {errors.password && <Text>This is required.</Text>}
 
       <Button title="Register!" onPress={handleSubmit(register)} />
-    </View>
+
+    </Card>
   );
 };
 

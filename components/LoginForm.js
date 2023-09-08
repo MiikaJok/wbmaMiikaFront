@@ -1,4 +1,4 @@
-import {View, TextInput, Button, Text} from 'react-native';
+import {TextInput, Button} from 'react-native';
 import React, {useContext} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useAuthentication} from '../hooks/ApiHooks';
@@ -33,7 +33,7 @@ const LoginForm = () => {
     }
   };
   return (
-    <View>
+    <Card>
       <Controller
         control={control}
         rules={{
@@ -72,7 +72,7 @@ const LoginForm = () => {
         name="password"
       />
       <Button title="Sign in!" onPress={handleSubmit(logIn)} />
-    </View>
+    </Card>
   );
 };
 export default LoginForm;
