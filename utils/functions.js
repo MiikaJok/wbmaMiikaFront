@@ -1,5 +1,6 @@
 const doFetch = async (url, options = {}) => {
-  const response = await fetch(url, options);
+  try {
+    const response = await fetch(url, options);
   const json = await response.json();
   if (!response.ok) {
     const message = json.error
@@ -8,6 +9,9 @@ const doFetch = async (url, options = {}) => {
     throw new Error(message || response.statusText);
   }
   return json;
+  } catch (error) {
+    throw new Error("doFetch failed" + error.message);
+  }
 };
 const formatDate = (date) => {
   date = new Date(date);

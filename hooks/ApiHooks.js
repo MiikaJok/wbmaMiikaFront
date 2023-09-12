@@ -1,15 +1,18 @@
 import {useEffect, useState} from 'react';
-import {apiUrl} from '../utils/app-config';
+import {apiUrl, appId} from '../utils/app-config';
 import {doFetch} from '../utils/functions';
 import {error} from '@babel/eslint-parser/lib/convert/index.cjs';
 
-const useMedia = () => {
+const useMedia = (update) => {
   const [mediaArray, setMediaArray] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const loadMedia = async () => {
     try {
-      //console.log(json);
-      const json = await doFetch(apiUrl + 'media');
+      //all mediafiles
+      //const json = await doFetch(apiUrl + 'media');
+      //files with specific appId
+      const json = await doFetch(apiUrl + 'tags/' + appId);
       const mediaFiles = await Promise.all(
         json.map(async (item) => {
           const fileData = await doFetch(apiUrl + 'media/' + item.file_id);
@@ -20,27 +23,47 @@ const useMedia = () => {
       //console.log(data);
       setMediaArray(mediaFiles);
     } catch (error) {
-      console.error('loadMedia failed', error);
+      console.error('loadMedia failed' + error.message);
     }
   };
 
   useEffect(() => {
     loadMedia();
-  }, []);
+  }, [update]);
 
-  return {mediaArray};
+  const postMedia = async (mediaData, token) => {
+    try {
+      setLoading(true);
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+      },
+      body: mediaData,
+    };
+    const uploadResult = await doFetch(apiUrl + 'media', options);
+    return uploadResult;
+    }  catch (error) {
+      throw new Error('upload error' + error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  return {mediaArray, postMedia, loading};
 };
 const useAuthentication = () => {
   const postLogin = async (user) => {
     console.log(user);
 
-      return await doFetch(apiUrl + 'login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
+    return await doFetch(apiUrl + 'login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
   };
   return {postLogin};
 };
@@ -78,24 +101,35 @@ const useUser = () => {
 
   const checkUsername = async (username) => {
     try {
-      const response =  await doFetch(`${apiUrl}users/username/${username}`);
+      const response = await doFetch(`${apiUrl}users/username/${username}`);
       return response.available;
-    }catch {
-      throw new Error("checkusername Error", error.message);
+    } catch {
+      throw new Error('checkusername Error' + error.message);
     }
   };
-  return {getUserByToken, postUser, checkUsername,putUser};
+  return {getUserByToken, postUser, checkUsername, putUser};
 };
 
 const useTag = () => {
+  const postTag = async (tag, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(tag),
+    };
+    return await doFetch(apiUrl + 'tags', options);
+  };
   const getFilesByTag = async (tag) => {
     try {
       return await doFetch(apiUrl + 'tags/' + tag);
     } catch (error) {
-      throw new Error('getFilesByTag error', error.message);
+      throw new Error('getFilesByTag error' + error.message);
     }
   };
-  return {getFilesByTag};
+  return {getFilesByTag, postTag};
 };
 
 export {useMedia, useAuthentication, useUser, useTag};

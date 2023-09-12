@@ -7,7 +7,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Single from '../views/Single';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
-import {AntDesign, FontAwesome} from '@expo/vector-icons';
+import {Icon} from '@rneui/themed';
+import Upload from '../views/Upload';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -19,20 +20,21 @@ const Tabscreen = () => {
         name="Home"
         component={Home}
         options={{
-          headerTitleAlign: 'center',
-          tabBarIcon: ({color, size}) => (
-            <AntDesign name="home" size={size} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="home" color={color} />,
         }}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
-          headerTitleAlign: 'center',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name="user" size={size} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="person" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Upload"
+        component={Upload}
+        options={{
+          tabBarIcon: ({color}) => <Icon name="cloud-upload" color={color} />,
         }}
       />
     </Tab.Navigator>
@@ -49,23 +51,11 @@ const Stackscreen = () => {
             name="Tabs"
             component={Tabscreen}
             options={{headerShown: false}}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="Single"
-            component={Single}
-            options={{
-              headerTitleAlign: 'center',
-            }}
-          ></Stack.Screen>
+          />
+          <Stack.Screen name="Single" component={Single} />
         </>
       ) : (
-        <Stack.Screen
-          name="MyApp"
-          component={Login}
-          options={{
-            headerTitleAlign: 'center',
-          }}
-        ></Stack.Screen>
+        <Stack.Screen name="Login" component={Login} />
       )}
     </Stack.Navigator>
   );
@@ -74,7 +64,7 @@ const Stackscreen = () => {
 const Navigator = () => {
   return (
     <NavigationContainer>
-      <Stackscreen></Stackscreen>
+      <Stackscreen />
     </NavigationContainer>
   );
 };
