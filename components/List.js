@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import {useContext} from 'react';
 import {MainContext} from '../contexts/MainContext';
 
-const List = ({navigation}) => {
+const List = ({navigation, myFilesOnly}) => {
   const {update, user} = useContext(MainContext);
   const {mediaArray} = useMedia(update, myFilesOnly);
+
   return (
     <FlatList
       data={mediaArray}
@@ -21,6 +22,7 @@ const List = ({navigation}) => {
     />
   );
 };
+
 List.propTypes = {
   navigation: PropTypes.object,
   myFilesOnly: PropTypes.bool,
