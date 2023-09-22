@@ -6,20 +6,24 @@ import {useContext} from 'react';
 import {MainContext} from '../contexts/MainContext';
 
 const List = ({navigation}) => {
-  const {update} = useContext(MainContext);
-  const {mediaArray} = useMedia(update);
-
+  const {update, user} = useContext(MainContext);
+  const {mediaArray} = useMedia(update, myFilesOnly);
   return (
     <FlatList
       data={mediaArray}
       renderItem={({item}) => (
-        <ListItem navigation={navigation} singleMedia={item} />
+        <ListItem
+          navigation={navigation}
+          singleMedia={item}
+          userId={user.user_id}
+        />
       )}
     />
   );
 };
 List.propTypes = {
   navigation: PropTypes.object,
+  myFilesOnly: PropTypes.bool,
 };
 
 export default List;
